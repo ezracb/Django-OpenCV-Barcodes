@@ -9,9 +9,9 @@ from pyzbar.pyzbar import decode
 from utils.camera_streaming_widget import CameraStreamingWidget
 
 
-# Camera feed
+# Camera feed 0
 def camera_feed(request):
-    stream = CameraStreamingWidget()
+    stream = CameraStreamingWidget(0)
     frames = stream.get_frames()
 
     # if ajax request is sent
@@ -38,12 +38,25 @@ def camera_feed(request):
     else:
         return StreamingHttpResponse(frames, content_type='multipart/x-mixed-replace; boundary=frame')
 
+# Camera feed 1
+def camera_feed_1(request):
+    stream = CameraStreamingWidget(1)
+    frames = stream.get_frames()
+
+    return StreamingHttpResponse(frames, content_type='multipart/x-mixed-replace; boundary=frame')
+
 
 def detect(request):
-    stream = CameraStreamingWidget()
+    stream = CameraStreamingWidget(0)
+    stream1 = CameraStreamingWidget(1)
     success, frame = stream.camera.read()
+    success1, frame1 = stream1.camera.read()
     if success:
         status = True
     else:
         status = False
-    return render(request, 'detect_barcodes/detect.html', context={'cam_status': status})
+    if success1:
+        status1 = True
+    else:
+        status1 = False
+    return render(request, 'detect_barcodes/detect.html', context={'cam_status': status, 'cam_status_1': status1})

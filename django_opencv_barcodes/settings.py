@@ -35,7 +35,7 @@ if os.environ.get('TARGET_ENV').lower() == 'prod':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]','192.168.2.196','192.168.2.197','10.200.0.102']
 
 
 # Application definition

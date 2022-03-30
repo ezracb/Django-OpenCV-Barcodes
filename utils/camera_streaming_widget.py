@@ -7,8 +7,8 @@ from pyzbar.pyzbar import decode
 
 
 class CameraStreamingWidget:
-    def __init__(self):
-        self.camera = cv2.VideoCapture(int(os.environ.get('CAMERA')))
+    def __init__(self, cameraIndex):
+        self.camera = cv2.VideoCapture(cameraIndex)
         self.media_path = os.path.join(os.getcwd(), "media", "images")
         # create "media/images" folder if doesn't exist
         if not self.media_path:
